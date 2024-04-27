@@ -38,22 +38,42 @@
                     </div>
                 </form>
             </div>
-            <ul>
-                @if (Model.JobInteraction.JobInfos is not null && Model.JobInteraction.JobInfos.Count > 0)
+            <div class="list-group mt-3">
+                @if (Model.JobInteraction.JobInfos is not null
+                          && Model.JobInteraction.JobInfos.Count > 0)
                 {
-                    @foreach (var job in Model.JobInteraction.JobInfos)
+                    for (int i = 0; i < Model.JobInteraction.JobInfos.Count; i++)
                     {
-                        <li>@job.Name - @job.Duration</li>
+                        var job = Model.JobInteraction.JobInfos[i];
+                        bool isActive = i == 0;
+                        <button type="button" class="list-group-item list-group-item-action @(isActive ? "active" : "")" aria-current="@(isActive ? "true" : "false")">
+                            @job.Name - @job.Duration Hours.
+                        </button>
                     }
                 }
                 else
                 {
-                    <li>example1 - 1 hour</li>
-                    <li>example2 - 2 hour</li>
-                    <li>example3 - 3 hour</li>
+                    <button type="button" class="list-group-item list-group-item-action active" aria-current="true">
+                        example1 - 1 hour
+                    </button>
+                    <button type="button" class="list-group-item list-group-item-action">example2 - 2 hours</button>
+                    <button type="button" class="list-group-item list-group-item-action">example3 - 3 hours</button>
                 }
-            </ul>
+            </div>
         </div>
-    </div>
+
 </body>
 </html>
+
+<script>
+    var listGroupItemActions = document.querySelectorAll(".list-group-item-action");
+
+    listGroupItemActions.forEach((button) => {
+        button.addEventListener("click", () => {            
+            listGroupItemActions.forEach((b) => {
+                b.classList.remove("active");
+            });
+            button.classList.add("active");
+        })
+    });
+</script>
