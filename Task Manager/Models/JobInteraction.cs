@@ -24,17 +24,21 @@
             return JobInfos ?? _taskManagerDbContext.JobInfos.ToList();
         }
 
-        public void RemoveJob(JobInfo job)
+        public void RemoveJob(int? id)
         {
-            if (job is null)
-                throw new ArgumentNullException(nameof(job));
-            
-            var jobInfos = _taskManagerDbContext.JobInfos.Find(job.Id);
+            if (id == 0 || id is null)
+                throw new ArgumentException("id is wrong.");
 
-            if (jobInfos is not null)
+            var job = _taskManagerDbContext.JobInfos.Find(id);
+
+            if (job is not null)
             {
                 _taskManagerDbContext.Remove(job);
                 _taskManagerDbContext.SaveChanges();
+            }
+            else
+            {
+                throw new ArgumentNullException("Not found job.");
             }
         }
 

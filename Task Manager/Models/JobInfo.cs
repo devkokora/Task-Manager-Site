@@ -13,7 +13,7 @@ namespace Task_Manager.Models
         public string Name { get; set; } = string.Empty;
 
         [Display(Name = "Details")]
-        public string Details { get; set; } = string.Empty;
+        public string? Details { get; set; }
 
         [Required(ErrorMessage = "Time must be within 0 - 999")]
         [Display(Name = "Duration")]

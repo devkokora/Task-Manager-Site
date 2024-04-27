@@ -9,20 +9,15 @@ namespace Task_Manager.Controllers
     {
         private readonly IJobInteraction _jobInteraction;
 
-        //[BindProperty]
-        //public JobInfo jobInfo { get; set; }
-
         public HomeController(IJobInteraction jobInteraction)
         {
             _jobInteraction = jobInteraction;
+            _jobInteraction.JobInfos = jobInteraction.GetJobInfos();
         }
 
         public IActionResult Index()
         {
-            var jobs = _jobInteraction.GetJobInfos();
-            _jobInteraction.JobInfos = jobs;
-
-            return View(new HomeViewModel(_jobInteraction));
+            return View(new HomeViewModel(_jobInteraction.JobInfos));
         }
 
         [HttpPost]
@@ -31,7 +26,28 @@ namespace Task_Manager.Controllers
             if (ModelState.IsValid)
             {
                 _jobInteraction.AddJob(jobInfo);
+                return RedirectToAction("Index");
             }
+            return View("Index", new HomeViewModel(_jobInteraction.JobInfos));
+        }
+
+        public IActionResult DeleteJob(int? id)
+        {
+            try
+            {
+                _jobInteraction.RemoveJob(id);
+            }
+            catch
+            {
+                return NotFound();
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult Clear()
+        {
+            _jobInteraction.ClearJob();
             return RedirectToAction("Index");
         }
     }

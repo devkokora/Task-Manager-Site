@@ -1,0 +1,23 @@
+﻿<script>
+    const bottons = document.querySelectorAll(".list-group-item-action");
+
+    bottons.forEach((button) => {
+        button.addEventListener("click", (event) => {
+            event.stopPropagation();
+            bottons.forEach((b) => {
+                b.classList.remove("active");
+            });
+
+            button.classList.add("active");
+        });
+    });
+
+    document.addEventListener("click", () => {
+        const activeBottons = document.querySelectorAll(".list-group-item-action.active");
+        if (activeBottons.length > 0) {
+            activeBottons.forEach((activeBotton) => {
+                activeBotton.classList.remove("active");
+            });
+        }
+    });
+</script>

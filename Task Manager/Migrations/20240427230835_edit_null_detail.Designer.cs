@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Task_Manager.Models;
 
@@ -10,9 +11,11 @@ using Task_Manager.Models;
 namespace Task_Manager.Migrations
 {
     [DbContext(typeof(TaskManagerDbContext))]
-    partial class TaskManagerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240427230835_edit_null_detail")]
+    partial class edit_null_detail
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
