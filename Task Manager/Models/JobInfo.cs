@@ -12,6 +12,7 @@ namespace Task_Manager.Models
 
         [Required(ErrorMessage = "Please enter something.")]
         [Display(Name = "Job Name")]
+        [StringLength(20, ErrorMessage = "No more than 20 characters")]
         public string Name { get; set; } = string.Empty;
 
         [Display(Name = "Details")]
