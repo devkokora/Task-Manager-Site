@@ -16,7 +16,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Views\Shared\css\" />
     <Folder Include="wwwroot\lib\js\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\lib\css\style.css" />
   </ItemGroup>
 
 </Project>
