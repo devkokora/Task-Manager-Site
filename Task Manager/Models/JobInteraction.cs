@@ -5,11 +5,21 @@ namespace Task_Manager.Models
     public class JobInteraction : IJobInteraction
     {
         private readonly TaskManagerDbContext _taskManagerDbContext;
-        public List<JobInfo> JobInfos { get; set; }
+        public List<JobInfo>? JobInfos { get; set; }
+        public string? SessionId { get; set; }
 
         public JobInteraction(TaskManagerDbContext taskManagerDbContext)
         {
             _taskManagerDbContext = taskManagerDbContext;
+        }
+
+        public static JobInteraction GetSession(IServiceProvider services)
+        {
+            ISession? session = services.GetRequiredService<IHttpContextAccessor>()?.HttpContext?.Session;
+            TaskManagerDbContext context = services.GetService<TaskManagerDbContext>() ?? throw new Exception("Error initalizing");
+            string sessionId = session?.GetString("SessionId") ?? Guid.NewGuid().ToString();
+            session?.SetString("SessionId", sessionId);
+            return new JobInteraction(context) { SessionId = sessionId };
         }
 
         public void AddJob(JobInfo job)
@@ -23,7 +33,9 @@ namespace Task_Manager.Models
 
         public List<JobInfo> GetJobInfos()
         {
-            return JobInfos ?? _taskManagerDbContext.JobInfos.ToList();
+            return JobInfos ?? _taskManagerDbContext.JobInfos
+                .Where(j => j.SessionId == SessionId)
+                .ToList();
         }
 
         public void RemoveJob(int? id)
@@ -55,9 +67,13 @@ namespace Task_Manager.Models
 
         public void EditJob(JobInfo jobInfo)
         {
-            var job = JobInfos.FirstOrDefault(j => j.Id == jobInfo.Id);
+            JobInfo? job = default;
+
+            if (JobInfos is not null)
+                job = JobInfos.FirstOrDefault(j => j.Id == jobInfo.Id);
             if (job is not null)
             {
+                jobInfo.SessionId = SessionId;
                 _taskManagerDbContext.Entry(job).State = EntityState.Detached;
                 _taskManagerDbContext.Update(jobInfo);
                 _taskManagerDbContext.SaveChanges();
