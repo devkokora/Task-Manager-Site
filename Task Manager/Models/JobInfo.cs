@@ -13,10 +13,11 @@ namespace Task_Manager.Models
         public string Name { get; set; } = string.Empty;
 
         [Display(Name = "Details")]
+        [StringLength(50, ErrorMessage = "No more than 50 characters")]
         public string? Details { get; set; }
 
         [Required(ErrorMessage = "Time must be within 0 - 999")]
-        [Display(Name = "Duration")]
+        [Display(Name = "Duration(Hour)")]
         [Range(0, 999, ErrorMessage = "Duration must be between 1 and 999 hours.")]
         public int Duration { get; set; } = 0;
     }
