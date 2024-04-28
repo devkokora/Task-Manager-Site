@@ -50,5 +50,27 @@ namespace Task_Manager.Controllers
             _jobInteraction.ClearJob();
             return RedirectToAction("Index");
         }
+
+        public IActionResult Edit(int? id)
+        {
+            if (id == null || id == 0)
+                return NotFound();
+            var job = _jobInteraction.JobInfos.Find(i => i.Id == id);
+            if (job == null)
+                return NotFound();
+
+            return View(job);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(JobInfo jobInfo)
+        {
+            if (ModelState.IsValid)
+            {
+                _jobInteraction.EditJob(jobInfo);
+                return RedirectToAction("Index");
+            }
+            return View(jobInfo);
+        }
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace Task_Manager.Models
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace Task_Manager.Models
 {
     public class JobInteraction : IJobInteraction
     {
@@ -47,6 +49,17 @@
             if (JobInfos.Count != 0)
             {
                 _taskManagerDbContext.RemoveRange(JobInfos);
+                _taskManagerDbContext.SaveChanges();
+            }
+        }
+
+        public void EditJob(JobInfo jobInfo)
+        {
+            var job = JobInfos.FirstOrDefault(j => j.Id == jobInfo.Id);
+            if (job is not null)
+            {
+                _taskManagerDbContext.Entry(job).State = EntityState.Detached;
+                _taskManagerDbContext.Update(jobInfo);
                 _taskManagerDbContext.SaveChanges();
             }
         }
