@@ -16,7 +16,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\Shared\css\" />
     <Folder Include="wwwroot\lib\js\" />
   </ItemGroup>
 
