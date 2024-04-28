@@ -1,7 +1,8 @@
 ﻿.container {
+    display:block;
     position: relative;
     width: 100%;
-    height: 100%;
+    height:100%;
 }
 
 body {
@@ -46,5 +47,17 @@ body {
 
 .custom-button {
     font-weight: 600;
-    color:darkolivegreen;
+    color: darkolivegreen;
 }
+
+.show-detail {
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.35s ease;
+    display: block; /* Keep this always block, but use max-height for toggling */
+}
+
+    .show-detail.active {
+        max-height: 100px; /* Adjust this value based on the maximum content size */
+    }
+

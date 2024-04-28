@@ -1,14 +1,19 @@
 ﻿<script>
     const bottons = document.querySelectorAll(".list-group-item-action");
+    const showDetails = document.querySelectorAll(".show-detail");
 
-    bottons.forEach((button) => {
+    bottons.forEach((button, i) => {
         button.addEventListener("click", (event) => {
             event.stopPropagation();
             bottons.forEach((b) => {
                 b.classList.remove("active");
             });
-
             button.classList.add("active");
+
+            if(showDetails[i].classList.value == "row show-detail")
+                showDetails[i].classList.add("active");
+            else
+                showDetails[i].classList.remove("active");
         });
     });
 
@@ -20,4 +25,15 @@
             });
         }
     });
+
+    //showDetails.forEach((showDetail) => {
+    //    showDetail.addEventListener("click", () => {
+    //        showDetails.forEach((sd) => {
+    //            sd.classList.remove("active");
+    //        });
+    //    showDetail.classList.add("active");
+    //    console.log("hello");
+    //    })
+    //});
+
 </script>
