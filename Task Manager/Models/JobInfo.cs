@@ -7,8 +7,10 @@ namespace Task_Manager.Models
     public class JobInfo
     {
         public int Id { get; set; }
+        [BindNever]
+        public string? SessionId { get; set; }
 
-        [Required(ErrorMessage = "Please enter somthing.")]
+        [Required(ErrorMessage = "Please enter something.")]
         [Display(Name = "Job Name")]
         public string Name { get; set; } = string.Empty;
 
@@ -19,6 +21,6 @@ namespace Task_Manager.Models
         [Required(ErrorMessage = "Time must be within 0 - 999")]
         [Display(Name = "Duration(Hour)")]
         [Range(0, 999, ErrorMessage = "Duration must be between 1 and 999 hours.")]
-        public int Duration { get; set; } = 0;
+        public int Duration { get; set; } = 0;   
     }
 }

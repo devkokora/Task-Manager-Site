@@ -2,7 +2,8 @@
 {
     public interface IJobInteraction
     {
-        List<JobInfo>  JobInfos { get; set; }
+        List<JobInfo>?  JobInfos { get; set; }
+        string? SessionId { get; set; }
         void AddJob(JobInfo job);
         void EditJob(JobInfo job);
         void RemoveJob(int? id);

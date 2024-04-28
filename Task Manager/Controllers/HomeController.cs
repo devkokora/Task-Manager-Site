@@ -17,7 +17,9 @@ namespace Task_Manager.Controllers
 
         public IActionResult Index()
         {
-            return View(new HomeViewModel(_jobInteraction.JobInfos));
+            var homeViwModel = new HomeViewModel(_jobInteraction.JobInfos);
+
+            return View(homeViwModel);
         }
 
         [HttpPost]
@@ -25,6 +27,7 @@ namespace Task_Manager.Controllers
         {
             if (ModelState.IsValid)
             {
+                jobInfo.SessionId = _jobInteraction.SessionId;
                 _jobInteraction.AddJob(jobInfo);
                 return RedirectToAction("Index");
             }
