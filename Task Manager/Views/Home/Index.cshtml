@@ -51,13 +51,16 @@
                                         </div>
                                     </div>
                                     <div class="col-md-1 d-flex align-items-center justify-content-end p-0 m-0 pb-2">
-                                        <a class="btn btn-link"
+                                        <a class="btn btn-link px-1 pt-0"
+                                           aria-label="Close"
+                                           asp-controller="Home"
+                                           asp-action="Edit"
+                                           asp-route-id="@job.Id">edit</a>
+                                        <a class="btn btn-link px-2 pt-0"
                                            aria-label="Close"
                                            asp-controller="Home"
                                            asp-action="DeleteJob"
-                                           asp-route-id="@job.Id">
-                                            ⨉
-                                        </a>
+                                           asp-route-id="@job.Id">⨉</a>
                                     </div>
                                 </div>
                                 <div class="row">

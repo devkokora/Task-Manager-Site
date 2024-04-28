@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 
 namespace Task_Manager.Models
 {
     public class JobInfo
     {
-        [BindNever]
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Please enter somthing.")]
